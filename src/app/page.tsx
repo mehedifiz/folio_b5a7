@@ -1,15 +1,17 @@
-import { Button } from '@/components/ui/button';
-import Hero from '@/components/(section)/hero';
-import React from 'react';
-import About from '../components/(section)/About';
-import BlogsSection from '../components/(section)/HomeBlogs';
+import { Button } from "@/components/ui/button";
+import Hero from "@/components/(section)/hero";
+import React from "react";
+import About from "../components/(section)/About";
+import BlogsSection from "../components/(section)/HomeBlogs";
 
 const HomePage = () => {
   return (
     <div>
- <Hero/>
- <About/>
- <BlogsSection/>
+      <Hero />
+      <About />
+      <BlogsSection />
+
+      
     </div>
   );
 };
