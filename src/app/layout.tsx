@@ -29,16 +29,21 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased px-4 border min-h-svh` }
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Nav />
-          {children}
 
-          <Footer/>
-            <Toaster />
+          <main className="flex-1 px-4 border">
+            {children}
+          </main>
+
+          <Footer />
+
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
   );
 }
+

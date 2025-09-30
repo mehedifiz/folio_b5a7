@@ -31,16 +31,12 @@ export default function LoginPage() {
         username,
         password,
       });
+              console.log(data ,"data")
+     
 
-      if (!data?.token) {
-        throw new Error(data?.message || "Login failed");
-      }
-
-      // Store token (or cookie if backend sends one)
-      localStorage.setItem("auth", JSON.stringify({ token: data.token }));
 
       toast.success("Logged in successfully!");
-      router.push("/"); // redirect to homepage
+      router.push("/dashboard");  
     } catch (err: any) {
       toast.error(err?.response?.data?.message || err.message || "Something went wrong");
     } finally {
