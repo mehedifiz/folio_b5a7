@@ -33,7 +33,11 @@ export default function BlogCard({ blog, isAdmin }: BlogCardProps) {
     <div className="rounded-xl overflow-hidden border bg-card shadow hover:shadow-lg transition flex flex-col">
       {blog.image && (
         <Image
-          src={blog.image}
+          src={
+            blog.image.startsWith("/") || blog.image.startsWith("http")
+              ? blog.image
+              : "/default-blog.jpg" // fallback image in public folder
+          }
           alt={blog.title}
           width={800}
           height={500}
@@ -42,7 +46,9 @@ export default function BlogCard({ blog, isAdmin }: BlogCardProps) {
       )}
       <div className="p-6 flex flex-col flex-1">
         <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
-        <p className="text-muted-foreground mb-4 line-clamp-3">{blog.summary}</p>
+        <p className="text-muted-foreground mb-4 line-clamp-3">
+          {blog.summary}
+        </p>
 
         <div className="mt-auto flex flex-wrap gap-2">
           <Link
