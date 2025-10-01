@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { deleteBlogServer } from "@/action/deleteBlogs";
 
 export type Blog = {
   id: number;
@@ -19,14 +20,26 @@ type BlogCardProps = {
   isAdmin?: boolean;
 };
 
-export default function BlogCard({ blog, isAdmin }: BlogCardProps) {
-  // Dummy handlers
+export default function BlogCard({ blog, onDelete, isAdmin }: BlogCardProps) {
   const handleUpdate = (id: number) => {
     console.log("Update blog with id:", id);
   };
 
-  const handleDelete = (id: number) => {
-    console.log("Delete blog with id:", id);
+  const handleDelete = async (id: number) => {
+    const confirmed = confirm("Are you sure you want to delete this blog?");
+    if (!confirmed) return;
+
+    try {
+      await deleteBlogServer(id); // calls server action, revalidates tag
+
+      // Instant UI update
+      if (onDelete) onDelete(id);
+
+      console.log("Blog deleted successfully:", id);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete blog.");
+    }
   };
 
   return (
@@ -36,7 +49,7 @@ export default function BlogCard({ blog, isAdmin }: BlogCardProps) {
           src={
             blog.image.startsWith("/") || blog.image.startsWith("http")
               ? blog.image
-              : "/default-blog.jpg" // fallback image in public folder
+              : "/default-blog.jpg"
           }
           alt={blog.title}
           width={800}
@@ -46,9 +59,7 @@ export default function BlogCard({ blog, isAdmin }: BlogCardProps) {
       )}
       <div className="p-6 flex flex-col flex-1">
         <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
-        <p className="text-muted-foreground mb-4 line-clamp-3">
-          {blog.summary}
-        </p>
+        <p className="text-muted-foreground mb-4 line-clamp-3">{blog.summary}</p>
 
         <div className="mt-auto flex flex-wrap gap-2">
           <Link

@@ -2,8 +2,7 @@
 
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers"; // <-- Import cookies
-import { toast } from "sonner";
+import { cookies } from "next/headers"; 
 
 export const createBlog = async (data: FormData) => {
     console.log("Form Data:", data);
@@ -27,7 +26,8 @@ export const createBlog = async (data: FormData) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            ...(token && { Authorization: `${token}` }),        },
+            ...(token && { Authorization: `${token}` }),
+        },
         body: JSON.stringify(modifiedData),
     });
 

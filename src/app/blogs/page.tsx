@@ -3,7 +3,7 @@ import Head from "next/head";
 
 // Server Component: fetch blogs from API
 async function getBlogs() {
-  const res = await fetch("http://localhost:7000/api/blog/getall", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog/getall`, {
     next: {
         tags: ["blogs"]
     },
@@ -14,7 +14,7 @@ async function getBlogs() {
   }
 
   const json = await res.json();
-  return json.data ?? []; // Make sure we return an array
+  return json.data ?? []; 
 }
 
 

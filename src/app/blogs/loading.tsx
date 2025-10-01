@@ -1,11 +1,11 @@
 import React from 'react';
 
-const loading = () => {
-    return (
-        <div>
-            <p className='  '>Loading</p>
-        </div>
-    );
+const Loading = () => {
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <p className="text-lg font-semibold animate-pulse">Loading...</p>
+    </div>
+  );
 };
 
-export default loading;
+export default Loading;
