@@ -16,7 +16,6 @@ const fetchApi = async (url: string, options: RequestInit = {}) => {
   const data = await res.json().catch(() => ({}));
 
   if (!res.ok) {
-    // Throw with backend message if exists
     throw new Error(data?.message || `Error ${res.status}`);
   }
 
