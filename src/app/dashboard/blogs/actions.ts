@@ -13,7 +13,10 @@ export async function createBlogAction(data: {
   const modifiedData = {
     ...data,
     tags: data.tags
-      ? data.tags.toString().split(",").map((tag) => tag.trim())
+      ? data.tags
+          .toString()
+          .split(",")
+          .map((tag) => tag.trim())
       : [],
     published: !!data.published,
   };
