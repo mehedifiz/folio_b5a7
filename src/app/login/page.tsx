@@ -7,14 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
-import useAxios from "@/components/useAxios";
+import fetchApi from "@/components/useAxios";
 
 export default function LoginPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const axios = useAxios();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,18 +26,23 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const { data } = await axios.post("/user/login", {
-        username,
-        password,
+      const data = await fetchApi("/user/login", {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
       });
-              console.log(data ,"data")
-     
 
+      console.log("data", data);
+
+      // Save token from response
+      if (data?.token) {
+        localStorage.setItem("auth", JSON.stringify({ token: data.token }));
+      }
 
       toast.success("Logged in successfully!");
-      router.push("/dashboard");  
+      router.push("/dashboard");
     } catch (err: any) {
-      toast.error(err?.response?.data?.message || err.message || "Something went wrong");
+      console.log("err", err);
+      toast.error(err.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
