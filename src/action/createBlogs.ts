@@ -18,10 +18,10 @@ export const createBlog = async (data: FormData) => {
     };
 
     // Get token from cookie
-    const token = cookies().get("auth")?.value;
+    const cookieStore = await cookies();
+    const token = cookieStore.get("auth")?.value;
     console.log("Token from cookie:", token);
 
-    // Send request to backend API
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog/create`, {
         method: "POST",
         headers: {

@@ -1,4 +1,5 @@
-"use client";
+"use client"; // client component
+export const dynamic = "force-dynamic";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -31,17 +32,14 @@ export default function LoginPage() {
         body: JSON.stringify({ username, password }),
       });
 
-      console.log("data", data);
-
-      // Save token from response
-      if (data?.token) {
-        localStorage.setItem("auth", JSON.stringify({ token: data.token }));
+      if (data?.user) {
+        toast.success("Logged in successfully!");
+        router.push("/dashboard");
+      } else {
+        toast.error("Invalid login response");
       }
-
-      toast.success("Logged in successfully!");
-      router.push("/dashboard");
     } catch (err: any) {
-      console.log("err", err);
+      console.error("Login error:", err);
       toast.error(err.message || "Something went wrong");
     } finally {
       setLoading(false);
@@ -50,14 +48,12 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/50 px-6">
-      <Card className="max-w-md w-full p-8 shadow-lg">
+      <Card className="max-w-md w-full p-8 shadow-lg rounded-2xl">
         <h1 className="text-3xl font-bold mb-6 text-center">Login</h1>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <Label htmlFor="username" className="mb-1">
-              Username
-            </Label>
+            <Label htmlFor="username" className="mb-1 block">Username</Label>
             <Input
               id="username"
               placeholder="Enter your username"
@@ -68,9 +64,7 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <Label htmlFor="password" className="mb-1">
-              Password
-            </Label>
+            <Label htmlFor="password" className="mb-1 block">Password</Label>
             <Input
               id="password"
               type="password"

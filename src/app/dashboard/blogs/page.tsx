@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import BlogCard from "@/components/BlogCard";
 import CreateBlogModal from "@/components/createBlogs";
 import { Metadata } from "next";

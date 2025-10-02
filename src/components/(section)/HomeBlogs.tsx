@@ -7,7 +7,7 @@ const BlogsSection = async () => {
       }, 
   });
   const data = await res.json();
-  const blogs = data.data;
+  const blogs = data?.data ?? [];
 
   return (
     <section id="blogs" className="py-16 px-6">
