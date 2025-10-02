@@ -36,7 +36,7 @@ export default function LoginPage() {
         // Store token in cookie
         document.cookie = `auth=${data.token}; path=/;`;
         toast.success("Logged in successfully!");
-        router.push("/dashboard");
+        router.push("/");
       } else {
         toast.error("Invalid login response");
       }
