@@ -32,7 +32,9 @@ export default function LoginPage() {
         body: JSON.stringify({ username, password }),
       });
 
-      if (data?.user) {
+      if (data?.token) {
+        // Store token in cookie
+        document.cookie = `auth=${data.token}; path=/;`;
         toast.success("Logged in successfully!");
         router.push("/dashboard");
       } else {
@@ -53,7 +55,9 @@ export default function LoginPage() {
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <Label htmlFor="username" className="mb-1 block">Username</Label>
+            <Label htmlFor="username" className="mb-1 block">
+              Username
+            </Label>
             <Input
               id="username"
               placeholder="Enter your username"
@@ -64,7 +68,9 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <Label htmlFor="password" className="mb-1 block">Password</Label>
+            <Label htmlFor="password" className="mb-1 block">
+              Password
+            </Label>
             <Input
               id="password"
               type="password"
