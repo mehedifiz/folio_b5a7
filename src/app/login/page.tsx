@@ -33,10 +33,9 @@ export default function LoginPage() {
       });
 
       if (data?.token) {
-        // Store token in cookie
         document.cookie = `auth=${data.token}; path=/;`;
         toast.success("Logged in successfully!");
-        router.push("/");
+        window.location.href = "/dashboard"; // Force reload so middleware sees cookie
       } else {
         toast.error("Invalid login response");
       }
