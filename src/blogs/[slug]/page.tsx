@@ -23,14 +23,13 @@ export default async function BlogPage({ params }: BlogProps) {
 
   console.log("Fetching blog with slug:", slug);
 
-  // Fetch single blog from backend
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_API}/blog/get/${slug}`,
-    { cache: "no-store" } // ensure fresh data each request
+    { cache: "no-store" } 
   );
   console.log("Fetch response status:", res);
   if (!res.ok) {
-    // return notFound();
+    return notFound();
   }
 
   const blog: Blog = await res.json();

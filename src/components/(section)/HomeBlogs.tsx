@@ -1,7 +1,7 @@
 import BlogCard, { Blog } from "../BlogCard";
 
 const BlogsSection = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog/getall`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog/getall?limit=3`, {
     next: {
        tags: ["blogs"]
       }, 
