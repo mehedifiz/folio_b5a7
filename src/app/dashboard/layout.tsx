@@ -1,11 +1,11 @@
-
-
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import fetchApi from "@/components/useAxios";
 
 export default function DashboardLayout({
   children,
@@ -13,6 +13,16 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const [collapsed, setCollapsed] = useState(false);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await fetchApi("/user/logout", { method: "POST" });
+      router.push("/login");  
+    } catch (err: any) {
+      console.error("Logout failed:", err.message);
+    }
+  };
 
   return (
     <div className="flex min-h-screen bg-muted/30">
@@ -51,6 +61,17 @@ export default function DashboardLayout({
             {collapsed ? "📂" : "Project Management"}
           </Link>
         </nav>
+
+        {/* Logout Button */}
+        <div className="p-4 border-t border-gray-700">
+          <Button
+            variant="destructive"
+            className="w-full"
+            onClick={handleLogout}
+          >
+            {collapsed ? "⏻" : "Logout"}
+          </Button>
+        </div>
       </aside>
 
       {/* Main Content */}

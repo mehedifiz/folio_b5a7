@@ -4,6 +4,18 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { deleteBlogServer } from "@/action/deleteBlogs";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
+import UpdateBlogModal from "./UpdateBlogModal";
 
 export type Blog = {
   id: number;
@@ -23,16 +35,17 @@ type BlogCardProps = {
 export default function BlogCard({ blog, onDelete, isAdmin }: BlogCardProps) {
   const handleUpdate = (id: number) => {
     console.log("Update blog with id:", id);
+
+
+
+    
   };
 
   const handleDelete = async (id: number) => {
-    const confirmed = confirm("Are you sure you want to delete this blog?");
-    if (!confirmed) return;
-
     try {
-      await deleteBlogServer(id); // calls server action, revalidates tag
+      await deleteBlogServer(id);
 
-      // Instant UI update
+      // update instantly
       if (onDelete) onDelete(id);
 
       console.log("Blog deleted successfully:", id);
@@ -69,25 +82,46 @@ export default function BlogCard({ blog, onDelete, isAdmin }: BlogCardProps) {
             Read More →
           </Link>
 
-          {isAdmin && (
-            <>
-              <Button
-                variant="outline"
-                className="px-4 py-2 bg-green-600 text-white hover:bg-green-700 transition"
-                onClick={() => handleUpdate(blog.id)}
-              >
-                Update
-              </Button>
+          
+        {isAdmin && (
+  <>
+    {/* Update Modal */}
+    <UpdateBlogModal
+      blog={blog}
+      onUpdated={(updated) => console.log("Updated blog:", updated)}
+    />
 
-              <Button
-                variant="destructive"
-                className="px-4 py-2"
-                onClick={() => handleDelete(blog.id)}
-              >
-                Delete
-              </Button>
-            </>
-          )}
+    {/* Delete Confirmation */}
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="destructive" className="px-4 py-2">
+          Delete
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>
+            Are you sure you want to delete this blog?
+          </AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. The blog
+            <strong>{blog.title}</strong> will be permanently deleted.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction
+            onClick={() => handleDelete(blog.id)}
+            className="bg-red-600 hover:bg-red-700 text-white"
+          >
+            Delete
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  </>
+)}
+
         </div>
       </div>
     </div>

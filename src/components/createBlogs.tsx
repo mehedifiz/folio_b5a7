@@ -17,10 +17,11 @@ import { createBlog } from "@/action/createBlogs";
 
 export default function CreateBlogModal() {
   const [open, setOpen] = useState(false);
-  const [content, setContent] = useState(""); // still need for tiptap sync
+  const [content, setContent] = useState(""); 
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
+    
       <DialogTrigger asChild>
         <Button>Create New Blog</Button>
       </DialogTrigger>
