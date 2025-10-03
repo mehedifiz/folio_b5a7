@@ -16,7 +16,6 @@ import Tiptap from "./Tiptap";
 import { toast } from "sonner";
 import { updateBlogServer } from "@/action/updateBlogs";
 
-// ✅ import server action
 
 export type Blog = {
   id: number;
