@@ -11,24 +11,26 @@ import { toast } from "sonner";
 export default function CreateProjectModal() {
   const [open, setOpen] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = new FormData(e.currentTarget);
+ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  const form = new FormData(e.currentTarget);
 
-    try {
-      const res = await createProject(form);
-      console.log("Project created:", res);
-      if (res?.id) {
-        toast.success("Project created successfully!");
-        setOpen(false);
-      } else {
-        toast.error("Failed to create project.");
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error("Something went wrong.");
+  try {
+    const res = await createProject(form);
+    
+
+    if (res?.id) {
+      toast.success("Project created successfully!");
+      setOpen(false);
+      // redirect("/dashboard/projects")
+    } else {
+      toast.error("Failed to create project.");
     }
-  };
+  } catch (err) {
+    console.error(err);
+    toast.error("Something went wrong.");
+  }
+};
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

@@ -1,12 +1,9 @@
 "use server";
 
-import { revalidateTag } from "next/cache";
-import { redirect } from "next/navigation";
+import {revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 export const createProject = async (data: FormData) => {
-  console.log("Form Data:", data);
-
   const projectInfo = Object.fromEntries(data.entries());
 
   const modifiedData = {
@@ -18,7 +15,6 @@ export const createProject = async (data: FormData) => {
 
   const cookieStore = await cookies();
   const token = cookieStore.get("auth")?.value;
-  console.log("Token from cookie:", token);
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_API}/project/create`,
@@ -36,8 +32,8 @@ export const createProject = async (data: FormData) => {
 
   if (result?.id) {
     revalidateTag("projects"); 
-    redirect("/dashboard/projects"); 
+    // revalidatePath("/dashboard/projects");
   }
 
-  return result;
+  return result; 
 };

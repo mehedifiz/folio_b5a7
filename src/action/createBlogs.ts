@@ -1,7 +1,6 @@
 "use server";
 
 import { revalidateTag } from "next/cache";
-import { redirect } from "next/navigation";
 import { cookies } from "next/headers"; 
 
 export const createBlog = async (data: FormData) => {
@@ -35,7 +34,7 @@ export const createBlog = async (data: FormData) => {
 
     if (result?.id) {
         revalidateTag("blogs");     
-        redirect("/blogs");       
+        // redirect("/blogs");       
     }
 
     return result;

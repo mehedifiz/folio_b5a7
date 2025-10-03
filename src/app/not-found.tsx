@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function notFound() {
   return (
     <>
@@ -12,15 +14,15 @@ export default function notFound() {
             Sorry, we couldn’t find the page you’re looking for.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <a
+            <Link
               href="/"
               className="rounded-md      px-3.5 py-2.5 text-sm font-semibold    shadow-xs hover: -indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline   "
             >
               Go back home
-            </a>
-            <a href="#" className="text-sm font-semibold    ">
+            </Link>
+            <Link href="#" className="text-sm font-semibold    ">
               Contact support <span aria-hidden="true">&rarr;</span>
-            </a>
+            </Link>
           </div>
         </div>
       </main>

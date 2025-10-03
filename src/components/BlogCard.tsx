@@ -16,6 +16,7 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import UpdateBlogModal from "./UpdateBlogModal";
+import { toast } from "sonner";
 
 export type Blog = {
   id: number;
@@ -32,21 +33,15 @@ type BlogCardProps = {
   isAdmin?: boolean;
 };
 
-export default function BlogCard({ blog, onDelete, isAdmin }: BlogCardProps) {
-  const handleUpdate = (id: number) => {
-    console.log("Update blog with id:", id);
-
-
-
-    
-  };
+export default function BlogCard({ blog,  isAdmin }: BlogCardProps) {
+   
 
   const handleDelete = async (id: number) => {
     try {
-      await deleteBlogServer(id);
+     await deleteBlogServer(id);
+     toast.success("Blog deleted successfully");
 
-      // update instantly
-      if (onDelete) onDelete(id);
+     
 
       console.log("Blog deleted successfully:", id);
     } catch (err) {
