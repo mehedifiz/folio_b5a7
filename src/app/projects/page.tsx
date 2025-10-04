@@ -5,6 +5,8 @@ async function getProjects() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/project/getall`, {
       next: { tags: ["project"] },
+      cache: "no-store", 
+
     });
 
     if (!res.ok) {
