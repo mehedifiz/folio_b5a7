@@ -25,7 +25,7 @@ export default function CreateProjectModal() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 2 * 1024 * 1024) {
+    if (file.size > 1 * 1024 * 1024) {
       toast.error("Image must be less than 2MB");
       return;
     }

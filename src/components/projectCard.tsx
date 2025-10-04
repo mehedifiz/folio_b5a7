@@ -33,9 +33,7 @@ type ProjectCardProps = {
 };
 
 export default function ProjectCard({ project, isAdmin }: ProjectCardProps) {
-  const handleUpdate = (id: number) => {
-    console.log("Update project with id:", id);
-  };
+  
 
   const handleDelete = async (id: number) => {
     console.log("Delete project with id:", id);
@@ -46,11 +44,7 @@ export default function ProjectCard({ project, isAdmin }: ProjectCardProps) {
       {/* Thumbnail */}
       {project.thumbnail && (
         <Image
-          src={
-            project.thumbnail.startsWith("/") ||
-            project.thumbnail.startsWith("http")
-              ? project.thumbnail
-              : "/default-project.jpg"
+          src={project.thumbnail
           }
           alt={project.title}
           width={800}

@@ -1,7 +1,6 @@
 import BlogCard, { Blog } from "@/components/BlogCard";
 import Head from "next/head";
 
-// Server Component: fetch blogs from API
 async function getBlogs() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog/getall`, {
@@ -9,7 +8,7 @@ async function getBlogs() {
     });
 
     if (!res.ok) {
-      return []; // Return empty array if fetch fails
+      return []; 
     }
 
     const json = await res.json();

@@ -1,6 +1,6 @@
 "use server";
 
-import {revalidateTag } from "next/cache";
+import {revalidatePath, revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 export const createProject = async (data: FormData) => {
@@ -32,7 +32,7 @@ export const createProject = async (data: FormData) => {
 
   if (result?.id) {
     revalidateTag("projects"); 
-    // revalidatePath("/dashboard/projects");
+    revalidatePath("/dashboard/projects");
   }
 
   return result; 

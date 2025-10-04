@@ -54,10 +54,7 @@ export default function BlogCard({ blog,  isAdmin }: BlogCardProps) {
     <div className="rounded-xl overflow-hidden border bg-card shadow hover:shadow-lg transition flex flex-col">
       {blog.image && (
         <Image
-          src={
-            blog.image.startsWith("/") || blog.image.startsWith("http")
-              ? blog.image
-              : "/default-blog.jpg"
+          src={blog.image
           }
           alt={blog.title}
           width={800}
