@@ -14,6 +14,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import UpdateProjectModal from "./UpdateProjectModal";
 
 export default function ProjectTable({ projects }: { projects: Project[] }) {
   const [deleteId, setDeleteId] = useState<number | null>(null);
@@ -84,13 +85,7 @@ export default function ProjectTable({ projects }: { projects: Project[] }) {
                   )}
                 </td>
                 <td className="px-4 py-2 space-x-2">
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => console.log("Update project with id:", p.id)}
-                  >
-                    Update
-                  </Button>
+                  <UpdateProjectModal project={p}  />
 
                   <Button
                     variant="destructive"

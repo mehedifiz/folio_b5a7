@@ -14,6 +14,7 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import { Globe, Github, Pencil, Trash } from "lucide-react";
+import UpdateProjectModal from "./UpdateProjectModal";
 
 export type Project = {
   id: number;
@@ -106,15 +107,8 @@ export default function ProjectCard({ project, isAdmin }: ProjectCardProps) {
         {/* Admin Actions */}
         {isAdmin && (
           <div className="mt-auto flex gap-2">
-            {/* Update Button */}
-            <Button
-              variant="secondary"
-              className="inline-flex items-center gap-2 px-4 py-2"
-              onClick={() => handleUpdate(project.id)}
-            >
-              <Pencil className="h-4 w-4" />
-              Update
-            </Button>
+            
+             <UpdateProjectModal project={project} />
 
             {/* Delete Confirmation */}
             <AlertDialog>

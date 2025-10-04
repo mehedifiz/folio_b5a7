@@ -1,36 +1,63 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { createProject } from "@/action/createProject";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
 import { toast } from "sonner";
+import { uploadImage } from "@/action/imageUploader";
 
 export default function CreateProjectModal() {
   const [open, setOpen] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
+  const [isPending, startTransition] = useTransition();
 
- const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  const form = new FormData(e.currentTarget);
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-  try {
-    const res = await createProject(form);
-    
-
-    if (res?.id) {
-      toast.success("Project created successfully!");
-      setOpen(false);
-      // redirect("/dashboard/projects")
-    } else {
-      toast.error("Failed to create project.");
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("Image must be less than 2MB");
+      return;
     }
-  } catch (err) {
-    console.error(err);
-    toast.error("Something went wrong.");
-  }
-};
+
+    startTransition(async () => {
+      const res = await uploadImage(file);
+      if (res.success) {
+        setImageUrl(res.url);
+        toast.success("Image uploaded successfully!");
+      } else {
+        toast.error(res.message);
+      }
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    form.set("thumbnail", imageUrl);
+
+    try {
+      const res = await createProject(form);
+      if (res?.id) {
+        toast.success("Project created successfully!");
+        setOpen(false);
+      } else {
+        toast.error("Failed to create project.");
+      }
+    } catch (error) {
+      toast.error("Something went wrong.");
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -42,20 +69,41 @@ export default function CreateProjectModal() {
         <DialogHeader>
           <DialogTitle>Create New Project</DialogTitle>
           <DialogDescription>
-            Fill in the project details below.
+            Fill in project details below.
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <Input name="title" placeholder="Title" required />
           <Textarea name="description" placeholder="Description" required />
-          <Input name="slug" placeholder="Slug" required />
-          <Input name="thumbnail" placeholder="Thumbnail URL" />
+
+          {/* Image Upload */}
+          <div>
+            <label className="block mb-1 font-medium">Thumbnail</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              disabled={isPending}
+              className="block w-full border rounded p-2"
+            />
+            {isPending && <p className="text-sm text-gray-500">Uploading...</p>}
+            {imageUrl && (
+              <img
+                src={imageUrl}
+                alt="Preview"
+                className="mt-2 w-32 h-32 object-cover rounded"
+              />
+            )}
+          </div>
+
           <Input name="liveUrl" placeholder="Live Demo URL" />
           <Input name="repoUrl" placeholder="Repository URL" />
           <Input name="features" placeholder="Comma separated features" />
 
-          <Button type="submit" className="w-full mt-2">Submit</Button>
+          <Button type="submit" className="w-full mt-2">
+            Submit
+          </Button>
         </form>
       </DialogContent>
     </Dialog>
