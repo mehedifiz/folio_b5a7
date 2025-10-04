@@ -33,7 +33,7 @@ export default function LoginPage() {
       if (data?.token) {
         document.cookie = `auth=${data.token}; path=/;`;
         toast.success("Logged in successfully!");
-        window.location.href = "/dashboard"; // Force reload so middleware sees cookie
+        window.location.href = "/dashboard"; 
       } else {
         toast.error("Invalid login response");
       }

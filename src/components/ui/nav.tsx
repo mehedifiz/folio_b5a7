@@ -12,31 +12,27 @@ export default function Nav() {
   return (
     <nav className="border-b border-border bg-background text-foreground">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
-        {/* Logo / Name */}
         <h1 className="text-2xl font-bold tracking-wide">
           <Link href="/">JonDon</Link>
         </h1>
 
-        {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6 font-medium">
           <Link href="/" className="hover:text-muted-foreground">
             Home
           </Link>
-          <Link href="/about" className="hover:text-muted-foreground">
-            About
-          </Link>
+          
           <Link href="/projects" className="hover:text-muted-foreground">
             Projects
           </Link>
           <Link href="/blogs" className="hover:text-muted-foreground">
             Blogs
           </Link>
-          <Link href="/resume" className="hover:text-muted-foreground">
-            Resume
+           
+          <Link href="/dashboard" className="block hover:text-muted-foreground">
+            isAdmin ?
           </Link>
-          <Link href="/dashboard" className="hover:text-muted-foreground">
-            Dashboard
-          </Link>
+          
+          
 
           {/* Theme Toggle */}
           <button
@@ -69,20 +65,16 @@ export default function Nav() {
           <Link href="/" className="block hover:text-muted-foreground">
             Home
           </Link>
-          <Link href="/about" className="block hover:text-muted-foreground">
-            About
-          </Link>
+          
           <Link href="/projects" className="block hover:text-muted-foreground">
             Projects
           </Link>
           <Link href="/blogs" className="block hover:text-muted-foreground">
             Blogs
           </Link>
-          <Link href="/resume" className="block hover:text-muted-foreground">
-            Resume
-          </Link>
+           
           <Link href="/dashboard" className="block hover:text-muted-foreground">
-            Dashboard
+            isAdmin ?
           </Link>
 
           {/* Theme Toggle (mobile) */}

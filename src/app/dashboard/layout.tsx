@@ -13,16 +13,19 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const [collapsed, setCollapsed] = useState(false);
-  const router = useRouter();
 
   const handleLogout = async () => {
-    try {
-      await fetchApi("/user/logout", { method: "POST" });
-      router.push("/login");  
-    } catch (err: any) {
-      console.error("Logout failed:", err.message);
-    }
-  };
+  try {
+    await fetchApi("/user/logout", { method: "POST" });
+
+    document.cookie = "auth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+    window.location.href = "/login";  
+  } catch (err: any) {
+    console.error("Logout failed:", err.message);
+  }
+};
+
 
   return (
     <div className="flex min-h-screen bg-muted/30">
