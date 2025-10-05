@@ -88,11 +88,11 @@ export default function CreateBlogModal() {
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <Input name="title" placeholder="Title" required />
-          <Textarea name="summary" placeholder="Summary" />
+          <Textarea name="summary" placeholder="Summary" required />
 
           {/* Editor */}
           <div className="border rounded p-2 min-h-[150px]">
-            <Tiptap content={content} setContent={setContent} />
+            <Tiptap content={content} setContent={setContent} required />
           </div>
 
           <div>
@@ -103,6 +103,7 @@ export default function CreateBlogModal() {
               onChange={handleImageUpload}
               disabled={isPending}
               className="block w-full border rounded p-2"
+              required={!imageUrl}
             />
             {isPending && <p className="text-sm text-gray-500">Uploading...</p>}
             {imageUrl && (
@@ -116,10 +117,10 @@ export default function CreateBlogModal() {
             )}
           </div>
 
-          <Input name="tags" placeholder="Comma separated tags" />
+          <Input name="tags" placeholder="Comma separated tags" required />
 
           <div className="flex items-center gap-2">
-            <input type="checkbox" name="published" id="published" />
+            <input type="checkbox" name="published" id="published" required />
             <label htmlFor="published">Published</label>
           </div>
 

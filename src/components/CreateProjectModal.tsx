@@ -86,6 +86,7 @@ export default function CreateProjectModal() {
               onChange={handleImageUpload}
               disabled={isPending}
               className="block w-full border rounded p-2"
+              required={!imageUrl}
             />
             {isPending && <p className="text-sm text-gray-500">Uploading...</p>}
             {imageUrl && (
@@ -97,9 +98,9 @@ export default function CreateProjectModal() {
             )}
           </div>
 
-          <Input name="liveUrl" placeholder="Live Demo URL" />
-          <Input name="repoUrl" placeholder="Repository URL" />
-          <Input name="features" placeholder="Comma separated features" />
+          <Input name="liveUrl" placeholder="Live Demo URL" required />
+          <Input name="repoUrl" placeholder="Repository URL" required/>
+          <Input name="features" placeholder="Comma separated features"  required />
 
           <Button type="submit" className="w-full mt-2">
             Submit
