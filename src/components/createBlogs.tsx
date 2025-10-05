@@ -45,7 +45,7 @@ export default function CreateBlogModal() {
     });
   };
 
-  // 📝 Handle form submit
+  // submit
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -95,7 +95,6 @@ export default function CreateBlogModal() {
             <Tiptap content={content} setContent={setContent} />
           </div>
 
-          {/* ✅ Image upload field */}
           <div>
             <label className="block mb-1 font-medium">Cover Image</label>
             <input
@@ -108,9 +107,10 @@ export default function CreateBlogModal() {
             {isPending && <p className="text-sm text-gray-500">Uploading...</p>}
             {imageUrl && (
               <Image
-              
                 src={imageUrl}
                 alt="Preview"
+                width={160}
+                height={160}
                 className="mt-2 w-40 h-40 object-cover rounded"
               />
             )}
